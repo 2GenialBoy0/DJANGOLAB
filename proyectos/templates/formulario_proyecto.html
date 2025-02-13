@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>{% if form.instance.id %}Editar{% else %}Agregar{% endif %} Proyecto</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    <div class="mb-3">
+        <label for="id_nombre" class="form-label">Nombre del Proyecto:</label>
+        {{ form.nombre }}
+    </div>
+
+    <div class="mb-3">
+        <label for="id_tipo" class="form-label">Tipo de Proyecto:</label>
+        {{ form.tipo }}
+    </div>
+
+    <button type="submit" class="btn btn-success">Guardar</button>
+</form>
+
+<a href="{% url 'lista_proyectos' %}" class="btn btn-secondary mt-3">Volver</a>
+{% endblock %}

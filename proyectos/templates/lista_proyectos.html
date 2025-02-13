@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Listado de Proyectos</h2>
+<a href="{% url 'agregar_proyecto' %}" class="btn btn-primary">Agregar Proyecto</a>
+
+<table id="tablaProyectos" class="display">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Tipo</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for proyecto in proyectos %}
+        <tr>
+            <td>{{ proyecto.id }}</td>
+            <td>{{ proyecto.nombre }}</td>
+            <td>{{ proyecto.tipo.nombre }}</td>
+            <td>
+                <a href="{% url 'editar_proyecto' proyecto.id %}" class="btn btn-warning">Editar</a>
+                <a href="{% url 'eliminar_proyecto' proyecto.id %}" class="btn btn-danger">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script>
+$(document).ready(function() {
+    $('#tablaProyectos').DataTable({
+        dom: 'Bfrtip',
+        buttons: ['copy', 'csv', 'excel', 'pdf', 'print']
+    });
+});
+</script>
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Listado de Herramientas</h2>
+<a href="{% url 'agregar_herramienta' %}" class="btn btn-primary">Agregar Herramienta</a>
+
+<table id="tablaHerramientas" class="display">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Imagen</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for herramienta in herramientas %}
+        <tr>
+            <td>{{ herramienta.id }}</td>
+            <td>{{ herramienta.nombre }}</td>
+            <td>
+                {% if herramienta.imagen %}
+                    <img src="{{ herramienta.imagen.url }}" width="50">
+                {% else %}
+                    No hay imagen
+                {% endif %}
+            </td>
+            <td>
+                <a href="{% url 'eliminar_herramienta' herramienta.id %}" class="btn btn-danger">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<script>
+$(document).ready(function() {
+    $('#tablaHerramientas').DataTable({
+        dom: 'Bfrtip',
+        buttons: ['csv', 'excel', 'pdf', 'print']
+    });
+});
+</script>
+{% endblock %}
